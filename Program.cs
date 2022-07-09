@@ -37,6 +37,7 @@ namespace Discord_Weather_RPC
             };
             rpcClient.Initialize();
         }
+
         private static async Task Main()
         {
             Init();
