@@ -37,7 +37,7 @@ namespace Discord_Weather_RPC
             };
             rpcClient.Initialize();
         }
-        private async static Task Main(string[] args)
+        private static async Task Main()
         {
             init();
             await UpdateWeatherAsync(); // start updating
