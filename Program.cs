@@ -47,15 +47,15 @@ namespace Discord_Weather_RPC
         {
             while (true)
             {
-                QueryResponse response = await weatherClient.QueryAsync(City);
+                QueryResponse response = await weatherClient.QueryAsync(CITY);
 
                 rpcClient.SetPresence(new RichPresence()
                 {
-                    Details = City,
+                    Details = CITY,
                     State = $"{response.Main.Temperature.CelsiusCurrent} °C",
                     Assets = new Assets()
                     {
-                        LargeImageKey = "weather",
+                        LargeImageKey = RPC_IMAGE_KEY,
                         LargeImageText = "Yonka's Weather RPC",
                     }
                 });
