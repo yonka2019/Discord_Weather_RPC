@@ -10,8 +10,8 @@ namespace Discord_Weather_RPC
     {
         private const string OPEN_WEATHER_API_KEY = "api_key";
         private const string DISCORD_CLIENT_ID = "client_id";
-        private const string CITY = "Qiryat Yam";
-        private const string RPC_IMAGE_KEY = "weather";
+        private const string CITY = "city_name";
+        private const string RPC_IMAGE_KEY = "image_key";
 
         private static DiscordRpcClient rpcClient;
         private static OpenWeatherApiClient weatherClient;
