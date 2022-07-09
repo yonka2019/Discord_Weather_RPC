@@ -17,7 +17,6 @@ namespace Discord_Weather_RPC
         private static DiscordRpcClient rpcClient;
         private static OpenWeatherApiClient weatherClient;
 
-
         private static void Init()
         {
             weatherClient = new OpenWeatherApiClient(OPEN_WEATHER_API_KEY);
