@@ -8,20 +8,15 @@ namespace Discord_Weather_RPC
 {
     internal class Program
     {
-        private const string OPEN_WEATHER_API_KEY = "api_key";
-        private const string DISCORD_CLIENT_ID = "client_id";
-        private const string CITY = "city";
-        private const string RPC_IMAGE_KEY = "image_key";
-        private const int UpdateEveryMs = 5000;
-
         private static DiscordRpcClient rpcClient;
         private static OpenWeatherApiClient weatherClient;
+        private static string weatherIcon;
 
         private static void Init()
         {
-            weatherClient = new OpenWeatherApiClient(OPEN_WEATHER_API_KEY);
+            weatherClient = new OpenWeatherApiClient(Data.OpenWeather.API_KEY);
 
-            rpcClient = new DiscordRpcClient(DISCORD_CLIENT_ID)
+            rpcClient = new DiscordRpcClient(Data.Discord.CLIENT_ID)
             {
                 Logger = new ConsoleLogger() { Level = LogLevel.Warning }
             };
@@ -48,19 +43,25 @@ namespace Discord_Weather_RPC
         {
             while (true)
             {
-                QueryResponse response = await weatherClient.QueryAsync(CITY);
+                QueryResponse response = await weatherClient.QueryAsync(Data.Settings.CITY);
+                weatherIcon = response.WeatherList[0].Icon;
+
+                if (weatherIcon.Contains("n"))
+                    weatherIcon = weatherIcon.Replace("n", "d");
 
                 rpcClient.SetPresence(new RichPresence()
                 {
-                    Details = CITY,
+                    Details = Data.Settings.CITY,
                     State = $"{response.Main.Temperature.CelsiusCurrent} °C",
                     Assets = new Assets()
                     {
-                        LargeImageKey = RPC_IMAGE_KEY,
-                        LargeImageText = "Yonka's Weather RPC",
+                        LargeImageKey = weatherIcon,
+                        LargeImageText = response.WeatherList[0].Description,
+                        SmallImageKey = Data.Discord.SMALL_IMAGE_KEY,
+                        SmallImageText = "By Yonka"
                     }
                 });
-                await Task.Delay(UpdateEveryMs);
+                await Task.Delay(Data.Settings.UPDATE_INTERVAL_MS);
             }
         }
     }
@@ -69,7 +70,7 @@ namespace Discord_Weather_RPC
     {
         internal static string GetString(this BaseRichPresence rpc)
         {
-            return $"\n--------\nDetails: {rpc.Details}\nState: {rpc.State}\n--------\n";
+            return $"\n----------\nDetails: {rpc.Details}\nState: {rpc.State}\n----------\n";
         }
     }
 }
