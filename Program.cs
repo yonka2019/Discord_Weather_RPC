@@ -10,8 +10,9 @@ namespace Discord_Weather_RPC
     {
         private const string OPEN_WEATHER_API_KEY = "api_key";
         private const string DISCORD_CLIENT_ID = "client_id";
-        private const string CITY = "city_name";
+        private const string CITY = "city";
         private const string RPC_IMAGE_KEY = "image_key";
+        private const int UpdateEveryMs = 5000;
 
         private static DiscordRpcClient rpcClient;
         private static OpenWeatherApiClient weatherClient;
@@ -59,7 +60,7 @@ namespace Discord_Weather_RPC
                         LargeImageText = "Yonka's Weather RPC",
                     }
                 });
-                await Task.Delay(5000);
+                await Task.Delay(UpdateEveryMs);
             }
         }
     }
