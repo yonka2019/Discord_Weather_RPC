@@ -46,7 +46,7 @@ namespace Discord_Weather_RPC
                 QueryResponse response = await weatherClient.QueryAsync(Data.Settings.CITY);
                 weatherIcon = response.WeatherList[0].Icon;
 
-                if (weatherIcon.Contains("n"))
+                if (weatherIcon.Contains("n")) // night icons are the same as the day icons, so switch night to day
                     weatherIcon = weatherIcon.Replace("n", "d");
 
                 rpcClient.SetPresence(new RichPresence()
