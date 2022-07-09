@@ -17,7 +17,7 @@ namespace Discord_Weather_RPC
         private static OpenWeatherApiClient weatherClient;
 
 
-        private static void init()
+        private static void Init()
         {
             weatherClient = new OpenWeatherApiClient(OPEN_WEATHER_API_KEY);
 
@@ -39,7 +39,7 @@ namespace Discord_Weather_RPC
         }
         private static async Task Main()
         {
-            init();
+            Init();
             await UpdateWeatherAsync(); // start updating
         }
 
